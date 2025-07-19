@@ -5,10 +5,6 @@ import logo from "../../assets/logo.png";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Team", path: "/team" },
-  { name: "Feature", path: "/feature" },
-  { name: "Blog", path: "/blog" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
@@ -75,10 +71,7 @@ const Navbar = () => {
 
             <div className="flex max-lg:ml-auto space-x-4">
               <button className="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide text-slate-900 border border-gray-400 bg-transparent hover:bg-gray-50 transition-all">
-                <Link to="/auth/signin">Sign in</Link>
-              </button>
-              <button className="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide text-white hover:text-black border border-[#F25925] hover:border-[#FBCEBD] bg-[#F25925] hover:bg-[#FBCEBD] transition-all">
-                <Link to="/auth/signup">Sign up</Link>
+                <Link to="/auth">Sign in</Link>
               </button>
 
               <button
