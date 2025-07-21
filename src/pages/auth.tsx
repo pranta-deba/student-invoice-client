@@ -64,6 +64,7 @@ const Auth = () => {
               </label>
               <input
                 type="email"
+                autoComplete="email"
                 className="w-full px-4 py-2 border rounded-md"
                 value={signinData.email}
                 onChange={(e) =>
@@ -80,6 +81,7 @@ const Auth = () => {
                 <input
                   type={signinPasswordVisible ? "text" : "password"}
                   className="w-full px-4 py-2 border rounded-md"
+                  autoComplete="new-password"
                   value={signinData.password}
                   onChange={(e) =>
                     setSigninData({ ...signinData, password: e.target.value })
@@ -118,6 +120,7 @@ const Auth = () => {
               </label>
               <input
                 type="text"
+                autoComplete="name"
                 className="w-full px-4 py-2 border rounded-md"
                 value={signupData.name}
                 onChange={(e) =>
@@ -132,6 +135,7 @@ const Auth = () => {
               </label>
               <input
                 type="email"
+                autoComplete="email"
                 className="w-full px-4 py-2 border rounded-md"
                 value={signupData.email}
                 onChange={(e) =>
@@ -149,6 +153,7 @@ const Auth = () => {
                   type={signupPasswordVisible ? "text" : "password"}
                   className="w-full px-4 py-2 border rounded-md"
                   value={signupData.password}
+                  autoComplete="new-password"
                   onChange={(e) =>
                     setSignupData({ ...signupData, password: e.target.value })
                   }
@@ -174,6 +179,7 @@ const Auth = () => {
                 <input
                   type={signupConfirmVisible ? "text" : "password"}
                   className="w-full px-4 py-2 border rounded-md"
+                  autoComplete="new-password"
                   value={signupData.confirmPassword}
                   onChange={(e) =>
                     setSignupData({
