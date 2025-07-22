@@ -27,6 +27,7 @@ const Auth = () => {
   };
   return (
     <div className="container mx-auto my-8 flex items-center justify-center px-4">
+      <title>Auth | CLIMAX</title>
       <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-xl">
         <div className="flex justify-center">
           <ul className="w-max flex gap-2 relative before:absolute before:w-full before:bottom-0 before:border-b-2 before:border-gray-200">
