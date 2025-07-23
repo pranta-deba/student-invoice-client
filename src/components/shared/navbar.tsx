@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { UserCircle } from "lucide-react";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -90,6 +91,9 @@ const Navbar = () => {
                     clipRule="evenodd"
                   />
                 </svg>
+              </button>
+              <button className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl text-gray-700 hover:bg-gray-300 transition">
+                <UserCircle />
               </button>
             </div>
           </div>
