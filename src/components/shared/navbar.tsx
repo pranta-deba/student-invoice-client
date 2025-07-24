@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { UserCircle } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -10,6 +11,10 @@ const navLinks = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { user } = useAuth();
+
+  console.log(user);
 
   return (
     <div className="shadow-md px-4 sm:px-10">
