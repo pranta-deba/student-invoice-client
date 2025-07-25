@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { UserCircle } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
+import ProfileDropdown from "../ui/profile-dropdown";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -76,9 +77,13 @@ const Navbar = () => {
             </div>
 
             <div className="flex max-lg:ml-auto space-x-4">
-              <button className="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide text-slate-900 border border-gray-400 bg-transparent hover:bg-gray-50 transition-all">
-                <Link to="/auth">Sign in</Link>
-              </button>
+              {!user && (
+                <button className="px-4 py-2 text-sm rounded-full font-medium cursor-pointer tracking-wide text-slate-900 border border-gray-400 bg-transparent hover:bg-gray-50 transition-all">
+                  <Link to="/auth">Sign in</Link>
+                </button>
+              )}
+
+              {!user && <ProfileDropdown />}
 
               <button
                 onClick={() => setIsMenuOpen(true)}
@@ -96,9 +101,6 @@ const Navbar = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
-              <button className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl text-gray-700 hover:bg-gray-300 transition">
-                <UserCircle />
               </button>
             </div>
           </div>
