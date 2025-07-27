@@ -16,12 +16,12 @@ const Auth = () => {
     confirmPassword: "",
   });
 
-  const handleSigninSubmit = (e: React.FormEvent) => {
+  const handleSigninSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     console.log("Sign In Data:", signinData);
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     console.log("Sign Up Data:", signupData);
   };
