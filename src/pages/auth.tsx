@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { publicAxios } from "../config/axios";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
 
   const [signinPasswordVisible, setSigninPasswordVisible] = useState(false);
@@ -37,8 +41,12 @@ const Auth = () => {
 
     try {
       const res = await publicAxios.post("/api/users/register", signupData);
-      console.log(res.data);
-      toast.success("Sign-up successful!");
+      if (res.status === 201) {
+        localStorage.setItem("token", res.data.token);
+        toast.success("Sign-up successful!");
+        setUser(res.data.user);
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error during sign-in:", error);
       toast.error("Sign-up failed!");

@@ -82,7 +82,7 @@ const Navbar = () => {
                 </button>
               )}
 
-              {!user && <ProfileDropdown />}
+              {user && <ProfileDropdown />}
 
               <button
                 onClick={() => setIsMenuOpen(true)}
