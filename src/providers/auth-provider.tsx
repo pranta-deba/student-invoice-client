@@ -7,10 +7,11 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState(null);
+  const [appLoader, setAppLoader] = useState(false);
 
   console.log(user);
 
-  const value = { user, setUser };
+  const value = { user, setUser, appLoader, setAppLoader };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

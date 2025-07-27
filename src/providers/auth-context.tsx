@@ -1,3 +1,10 @@
 import { createContext } from "react";
 
-export const AuthContext = createContext(null);
+interface Props {
+  user: null | any;
+  setUser: (user: null | any) => void;
+  appLoader: boolean;
+  setAppLoader: (loader: boolean) => void;
+}
+
+export const AuthContext = createContext<Props | null>(null);
