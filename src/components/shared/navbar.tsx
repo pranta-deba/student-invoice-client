@@ -17,7 +17,7 @@ const Navbar = () => {
   console.log(user);
 
   return (
-    <div className="shadow-md px-4 sm:px-10">
+    <div className="shadow-md px-4">
       <header className="container mx-auto flex bg-white min-h-[70px] tracking-wide relative z-50">
         <div className="flex flex-wrap items-center justify-between gap-5 w-full">
           <Link to="/" className="max-sm:hidden">
