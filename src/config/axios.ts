@@ -17,5 +17,8 @@ authAxios.interceptors.request.use((config) => {
 
 // Normal public instance (no token, no credentials)
 export const publicAxios = axios.create({
-  baseURL: import.meta.env.VITE_PUBLIC_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });

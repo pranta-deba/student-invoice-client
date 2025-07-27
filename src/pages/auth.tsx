@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { publicAxios } from "../config/axios";
+import toast from "react-hot-toast";
 
 const Auth = () => {
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
@@ -21,16 +23,28 @@ const Auth = () => {
     console.log("Sign In Data:", signinData);
 
     try {
-      
+      const res = await publicAxios.post("/api/users/login", signinData);
+      console.log(res.data);
+      toast.success("Sign-in successful!");
     } catch (error) {
       console.error("Error during sign-in:", error);
+      toast.error("Sign-in failed!");
     }
   };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign Up Data:", signupData);
+
+    try {
+      const res = await publicAxios.post("/api/users/register", signupData);
+      console.log(res.data);
+      toast.success("Sign-up successful!");
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+      toast.error("Sign-up failed!");
+    }
   };
+
   return (
     <div className="container mx-auto my-8 flex items-center justify-center px-4">
       <title>Auth | CLIMAX</title>
