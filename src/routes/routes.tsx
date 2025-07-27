@@ -17,6 +17,26 @@ export const router = createBrowserRouter([
         path: "auth",
         element: <Auth />,
       },
+      {
+        path: "dashboard/total-student",
+        element: "total student",
+      },
+      {
+        path: "dashboard/student-info",
+        element: "student-info",
+      },
+      {
+        path: "dashboard/register",
+        element: "student-register",
+      },
+      {
+        path: "dashboard/payment",
+        element: "payment",
+      },
+      {
+        path: "dashboard/payment-info",
+        element: "payment-info",
+      },
     ],
   },
 ]);

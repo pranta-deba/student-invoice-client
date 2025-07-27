@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-[#F25925] text-white py-6">
+    <footer className="bg-[#1A1A2E] text-white py-6">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Your Company. All rights reserved.
