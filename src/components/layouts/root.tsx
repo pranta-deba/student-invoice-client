@@ -1,8 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../shared/footer";
 import Navbar from "../shared/navbar";
+import useAuth from "../../hooks/useAuth";
 
 const Root = () => {
+  const { appLoader } = useAuth();
+
+  if (appLoader) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Navbar />

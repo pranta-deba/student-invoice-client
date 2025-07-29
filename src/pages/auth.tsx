@@ -3,16 +3,16 @@ import { Eye, EyeOff } from "lucide-react";
 import { publicAxios } from "../config/axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { setToken, setUserByLocalStorage } from "../utils/localStorage";
 
 const Auth = () => {
   const { setUser } = useAuth();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
 
   const [signinPasswordVisible, setSigninPasswordVisible] = useState(false);
   const [signupPasswordVisible, setSignupPasswordVisible] = useState(false);
   const [signupConfirmVisible, setSignupConfirmVisible] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [signinData, setSigninData] = useState({ email: "", password: "" });
   const [signupData, setSignupData] = useState({
@@ -24,32 +24,39 @@ const Auth = () => {
 
   const handleSigninSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign In Data:", signinData);
+    setLoader(true);
 
     try {
       const res = await publicAxios.post("/api/users/login", signinData);
       console.log(res.data);
+      setToken(res.data.token);
+      setUser(res.data.user);
+      setUserByLocalStorage(res.data.user);
       toast.success("Sign-in successful!");
     } catch (error) {
       console.error("Error during sign-in:", error);
       toast.error("Sign-in failed!");
+    } finally {
+      setLoader(false);
     }
   };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setLoader(true);
     try {
       const res = await publicAxios.post("/api/users/register", signupData);
       if (res.status === 201) {
-        localStorage.setItem("token", res.data.token);
-        toast.success("Sign-up successful!");
+        setToken(res.data.token);
         setUser(res.data.user);
-        navigate("/");
+        setUserByLocalStorage(res.data.user);
+        toast.success("Sign-up successful!");
       }
     } catch (error) {
       console.error("Error during sign-in:", error);
       toast.error("Sign-up failed!");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -131,6 +138,7 @@ const Auth = () => {
             </div>
             <button
               type="submit"
+              disabled={loader}
               className="w-full bg-[#F25925] text-white py-2 px-4 rounded-md hover:bg-[#FBCEBD] hover:text-black transition-all"
             >
               Sign In
@@ -232,6 +240,7 @@ const Auth = () => {
             </div>
             <button
               type="submit"
+              disabled={loader}
               className="w-full bg-[#F25925] text-white py-2 px-4 rounded-md hover:bg-[#FBCEBD] hover:text-black transition-all"
             >
               Sign Up
