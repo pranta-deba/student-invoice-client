@@ -3,7 +3,6 @@ import {
   FileText,
   UserPlus,
   CreditCard,
-  ReceiptText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Auth from "./auth";
@@ -11,7 +10,7 @@ import useAuth from "../hooks/useAuth";
 
 const navItems = [
   {
-    name: "Total Student",
+    name: "All Student",
     icon: <Users size={28} />,
     link: "dashboard/total-student",
   },
@@ -29,12 +28,7 @@ const navItems = [
     name: "Payment",
     icon: <CreditCard size={28} />,
     link: "dashboard/payment",
-  },
-  {
-    name: "Payment Information",
-    icon: <ReceiptText size={28} />,
-    link: "dashboard/payment-info",
-  },
+  }
 ];
 
 const Home = () => {
