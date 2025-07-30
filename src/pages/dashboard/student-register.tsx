@@ -116,147 +116,150 @@ const AdmissionForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-4 space-y-4">
-      <input
-        name="studentName"
-        value={formData.studentName}
-        onChange={handleChange}
-        placeholder="Student Name"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        name="fatherName"
-        value={formData.fatherName}
-        onChange={handleChange}
-        placeholder="Father's Name"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        name="motherName"
-        value={formData.motherName}
-        onChange={handleChange}
-        placeholder="Mother's Name"
-        className="border p-2 w-full"
-        required
-      />
-
-      <div className="flex gap-2">
+    <div>
+      <h1 className="text-xl font-semibold mt-4 text-center text-[#F25925] underline">Admission Form</h1>
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-4 space-y-4">
         <input
-          type="number"
-          name="dd"
-          value={formData.dob.dd}
+          name="studentName"
+          value={formData.studentName}
           onChange={handleChange}
-          placeholder="DD"
-          className="border p-2 w-1/3"
+          placeholder="Student Name"
+          className="border p-2 w-full"
           required
         />
         <input
-          type="number"
-          name="mm"
-          value={formData.dob.mm}
+          name="fatherName"
+          value={formData.fatherName}
           onChange={handleChange}
-          placeholder="MM"
-          className="border p-2 w-1/3"
+          placeholder="Father's Name"
+          className="border p-2 w-full"
           required
         />
         <input
-          name="yyyy"
-          type="number"
-          value={formData.dob.yyyy}
+          name="motherName"
+          value={formData.motherName}
           onChange={handleChange}
-          placeholder="YYYY"
-          className="border p-2 w-1/3"
+          placeholder="Mother's Name"
+          className="border p-2 w-full"
           required
         />
-      </div>
 
-      <input
-        name="permanentAddress"
-        value={formData.permanentAddress}
-        onChange={handleChange}
-        placeholder="Permanent Address"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        name="presentAddress"
-        value={formData.presentAddress}
-        onChange={handleChange}
-        placeholder="Present Address"
-        className="border p-2 w-full"
-        required
-      />
-
-      <select
-        name="gender"
-        value={formData.gender}
-        onChange={handleChange}
-        className="border p-2 w-full"
-        required
-      >
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select>
-
-      <select
-        name="studentClass"
-        value={formData.studentClass}
-        onChange={handleChange}
-        className="border p-2 w-full"
-        required
-      >
-        <option value="">Select Class</option>
-        {Object.keys(classFees).map((className) => (
-          <option key={className} value={className}>
-            {className}
-          </option>
-        ))}
-      </select>
-
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="formFee"
-          checked={formData.formFee}
-          onChange={handleChange}
-        />
-        <label htmlFor="formFee">Form Fee Paid</label>
-      </div>
-
-      <input
-        type="number"
-        name="advancePayment"
-        value={formData.advancePayment}
-        onChange={handleChange}
-        placeholder="Advance Payment"
-        className="border p-2 w-full"
-      />
-
-      <div className="text-lg font-semibold">
-        Class Fee: <span>{!average ? classFee : ""}</span>{" "}
-        {average && (
+        <div className="flex gap-2">
           <input
             type="number"
-            name="classFee"
-            value={classFee}
-            onChange={(e) => setClassFee(Number(e.target.value))}
-            className="border p-2"
-            placeholder="Average Class Fee"
+            name="dd"
+            value={formData.dob.dd}
+            onChange={handleChange}
+            placeholder="DD"
+            className="border p-2 w-1/3"
+            required
           />
-        )}
-      </div>
+          <input
+            type="number"
+            name="mm"
+            value={formData.dob.mm}
+            onChange={handleChange}
+            placeholder="MM"
+            className="border p-2 w-1/3"
+            required
+          />
+          <input
+            name="yyyy"
+            type="number"
+            value={formData.dob.yyyy}
+            onChange={handleChange}
+            placeholder="YYYY"
+            className="border p-2 w-1/3"
+            required
+          />
+        </div>
 
-      <button
-        disabled={loader}
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-      >
-        Submit Form
-      </button>
-    </form>
+        <input
+          name="permanentAddress"
+          value={formData.permanentAddress}
+          onChange={handleChange}
+          placeholder="Permanent Address"
+          className="border p-2 w-full"
+          required
+        />
+        <input
+          name="presentAddress"
+          value={formData.presentAddress}
+          onChange={handleChange}
+          placeholder="Present Address"
+          className="border p-2 w-full"
+          required
+        />
+
+        <select
+          name="gender"
+          value={formData.gender}
+          onChange={handleChange}
+          className="border p-2 w-full"
+          required
+        >
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+
+        <select
+          name="studentClass"
+          value={formData.studentClass}
+          onChange={handleChange}
+          className="border p-2 w-full"
+          required
+        >
+          <option value="">Select Class</option>
+          {Object.keys(classFees).map((className) => (
+            <option key={className} value={className}>
+              {className}
+            </option>
+          ))}
+        </select>
+
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="formFee"
+            checked={formData.formFee}
+            onChange={handleChange}
+          />
+          <label htmlFor="formFee">Form Fee Paid</label>
+        </div>
+
+        <input
+          type="number"
+          name="advancePayment"
+          value={formData.advancePayment}
+          onChange={handleChange}
+          placeholder="Advance Payment"
+          className="border p-2 w-full"
+        />
+
+        <div className="text-lg font-semibold">
+          Class Fee: <span>{!average ? classFee : ""}</span>{" "}
+          {average && (
+            <input
+              type="number"
+              name="classFee"
+              value={classFee}
+              onChange={(e) => setClassFee(Number(e.target.value))}
+              className="border p-2"
+              placeholder="Average Class Fee"
+            />
+          )}
+        </div>
+
+        <button
+          disabled={loader}
+          type="submit"
+          className="bg-[#F25925] hover:bg-[#F25925]/90 text-white px-4 py-2 rounded"
+        >
+          Submit Form
+        </button>
+      </form>
+    </div>
   );
 };
 
