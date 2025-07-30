@@ -12,7 +12,7 @@ const navItems = [
   {
     name: "All Student",
     icon: <Users size={28} />,
-    link: "dashboard/total-student",
+    link: "dashboard/all-student",
   },
   {
     name: "Student Information",

@@ -4,6 +4,7 @@ import Home from "../pages/home";
 import StudentRegister from "../pages/dashboard/student-register";
 import StudentPayment from "../pages/dashboard/student-payment";
 import StudentInformation from "../pages/dashboard/student-information";
+import AllStudent from "../pages/dashboard/all-student";
 
 export const router = createBrowserRouter([
   {
@@ -16,8 +17,8 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "dashboard/total-student",
-        element: "total student",
+        path: "dashboard/all-student",
+        element: <AllStudent />,
       },
       {
         path: "dashboard/student-info",
