@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { StudentType } from "./student-payment";
 import { publicAxios } from "../../config/axios";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 const classes = [
   "IV",
   "V",
@@ -60,9 +61,9 @@ const StudentInformation = () => {
   };
 
   return (
-    <div className="container mx-auto flex flex-col md:flex-row gap-3  my-6 p-4">
+    <div className="container mx-auto flex flex-col md:flex-row gap-3  md:my-6 p-4">
       <div className="w-full md:w-4/12 p-4 rounded-lg shadow-md space-y-4">
-        <h2 className="text-xl font-semibold text-center">Search Student</h2>
+        <h2 className="text-xl font-semibold text-center text-[#F25925]">Search Student</h2>
 
         {/* Class Select */}
         <div>
@@ -70,7 +71,7 @@ const StudentInformation = () => {
           <select
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F25925]"
           >
             <option value="" disabled>
               Select Class
@@ -91,7 +92,7 @@ const StudentInformation = () => {
             value={roll}
             onChange={(e) => setRoll(e.target.value)}
             placeholder="Enter Roll Number"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F25925]"
           />
         </div>
 
@@ -100,7 +101,7 @@ const StudentInformation = () => {
           <button
             disabled={loader}
             onClick={handleSearch}
-            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+            className="bg-[#F25925] hover:bg-[#F25925]/90 text-white px-6 py-2 rounded-md transition"
           >
             Search
           </button>
@@ -108,68 +109,68 @@ const StudentInformation = () => {
       </div>
 
       <div className="w-full md:w-8/12 p-4 rounded-lg shadow-md space-y-4">
-        <h1 className=" text-center font-bold">Student Details</h1>
+        <h1 className="text-xl text-center font-semibold text-[#F25925] underline">Student Details</h1>
 
         {loader && (
-          <div className="flex justify-center items-center">
-            <p>Loading...</p>
+           <div className="flex justify-center items-center h-40">
+            <Loader2 className="animate-spin h-8 w-8 text-[#F25925]" />
           </div>
         )}
         {student && (
           <>
             <div className=" space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 {/* Name & Class */}
-                <div>
-                  <p className="font-medium text-gray-700">Student Name</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Student Name: </p>
                   <p className="text-gray-900">{student.studentName}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Class</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Class: </p>
                   <p className="text-gray-900">{student.studentClass}</p>
                 </div>
 
                 {/* Roll & Gender */}
-                <div>
-                  <p className="font-medium text-gray-700">Roll Number</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Roll Number: </p>
                   <p className="text-gray-900">{student.roll}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Gender</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Gender: </p>
                   <p className="text-gray-900">{student.gender}</p>
                 </div>
 
                 {/* DOB */}
-                <div>
-                  <p className="font-medium text-gray-700">Date of Birth</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Date of Birth: </p>
                   <p className="text-gray-900">
                     {student.dob.dd}/{student.dob.mm}/{student.dob.yyyy}
                   </p>
                 </div>
 
                 {/* Addresses */}
-                <div>
-                  <p className="font-medium text-gray-700">Permanent Address</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Permanent Address: </p>
                   <p className="text-gray-900">{student.permanentAddress}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Present Address</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Present Address: </p>
                   <p className="text-gray-900">{student.presentAddress}</p>
                 </div>
 
                 {/* Parents */}
-                <div>
-                  <p className="font-medium text-gray-700">Father's Name</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Father's Name: </p>
                   <p className="text-gray-900">{student.fatherName}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Mother's Name</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Mother's Name: </p>
                   <p className="text-gray-900">{student.motherName}</p>
                 </div>
 
                 {/* Financial Info */}
-                <div>
-                  <p className="font-medium text-gray-700">Form Fee Paid</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Form Fee Paid: </p>
                   <p
                     className={`font-semibold ${
                       student.formFee ? "text-green-600" : "text-red-600"
@@ -178,22 +179,22 @@ const StudentInformation = () => {
                     {student.formFee ? "Yes" : "No"}
                   </p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Class Fee</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Class Fee: </p>
                   <p className="text-gray-900">৳ {student.classFee}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Advance Paid</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Advance Paid: </p>
                   <p className="text-gray-900">৳ {student.advancePayment}</p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Due</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Due: </p>
                   <p className="text-gray-900  font-semibold">
                     ৳ {student.due}
                   </p>
                 </div>
-                <div>
-                  <p className="font-medium text-gray-700">Total Paid</p>
+                <div className="flex gap-2">
+                  <p className="text-[#F25925] font-bold">Total Paid: </p>
                   <p className="text-gray-900 font-semibold">
                     ৳ {student.advancePayment + (student.formFee ? 500 : 0)}
                   </p>
