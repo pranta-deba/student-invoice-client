@@ -74,11 +74,12 @@ const StudentPayment = () => {
   const [loader, setLoader] = useState(false);
   const [student, setStudent] = useState<StudentType | null>(null);
 
-  const [payment, setPayment] = useState<number | "">("");
+  const [payment, setPayment] = useState<string | "">("");
 
   const handleSearch = async () => {
     setStudent(null);
     setLoader(true);
+    setPayment("");
 
     if (!selectedClass || !roll) {
       toast.error("Please select a class and roll number.");
@@ -97,6 +98,33 @@ const StudentPayment = () => {
         setStudent(res.data.student);
       } else {
         toast.error("Student not found.");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoader(true);
+    if (!payment) {
+      toast.error("Please search for a student first.");
+      setLoader(false);
+      return;
+    }
+
+    try {
+      const res = await publicAxios.put(`/api/students/student-payment`, {
+        studentId: student?._id,
+        payment: parseInt(payment),
+      });
+      console.log(res.data);
+      if (res.data.success) {
+        setStudent(res.data.student);
+        toast.success("Payment updated successfully!");
+        setPayment("");
       }
     } catch (error) {
       console.log(error);
@@ -199,14 +227,16 @@ const StudentPayment = () => {
               </div>
             </div>
 
-            <form className="flex flex-col gap-4 mt-4">
+            <form
+              onSubmit={handlePaymentSubmit}
+              className="flex flex-col gap-4 mt-4"
+            >
               <label className="font-semibold text-gray-700">
                 Payment Amount (৳)
                 <input
-                  type="number"
-                  min={0}
+                  type="text"
                   value={payment}
-                  onChange={(e) => setPayment(Number(e.target.value))}
+                  onChange={(e) => setPayment(e.target.value)}
                   className="mt-1 border rounded-md p-2 focus:outline-[#F25925]"
                   placeholder="Enter payment amount"
                   required
@@ -215,7 +245,7 @@ const StudentPayment = () => {
 
               <button
                 type="submit"
-                disabled={payment === "" || payment <= 0}
+                disabled={payment === ""}
                 className="bg-[#F25925] text-white py-2 rounded-md hover:bg-[#d94b1e] disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 Submit Payment
