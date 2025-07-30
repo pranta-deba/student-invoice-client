@@ -10,7 +10,7 @@ type User = {
 };
 
 export const setToken = (token: string) =>
-  localStorage.setItem("access_token", token);
+  localStorage.setItem("student-invoice-access_token", token);
 
 export const getToken = () =>
   localStorage.getItem("student-invoice-access_token");
