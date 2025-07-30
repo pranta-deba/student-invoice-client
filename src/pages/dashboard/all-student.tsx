@@ -102,7 +102,7 @@ const AllStudent = () => {
         {/* Filter Button */}
         <button
           onClick={handleFilter}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm"
+          className="bg-[#F25925] hover:bg-[#F25925]/90 text-white px-6 py-2 rounded-md text-sm"
         >
           Filter
         </button>
@@ -112,11 +112,11 @@ const AllStudent = () => {
       <div className="overflow-x-auto">
         {loader ? (
           <div className="flex justify-center items-center h-40">
-            <Loader2 className="animate-spin h-8 w-8 text-blue-600" />
+            <Loader2 className="animate-spin h-8 w-8 text-[#F25925]" />
           </div>
         ) : (
           <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-[#F25925] hover:bg-[#F25925]/90 text-white">
               <tr>
                 <th className="py-2 px-4 text-left text-sm">Name</th>
                 <th className="py-2 px-4 text-left text-sm">Roll</th>
@@ -157,7 +157,7 @@ const AllStudent = () => {
       <div className="flex justify-center gap-2 mt-6">
         <button
           onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+          className={`px-4 py-2 bg-[#F25925] hover:bg-[#F25925]/90 rounded text-white ${page === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={page === 1}
         >
           Prev
@@ -167,7 +167,7 @@ const AllStudent = () => {
         </span>
         <button
           onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+          className={`px-4 py-2 bg-[#F25925] hover:bg-[#F25925]/90 rounded text-white ${page === totalPages ? "opacity-50 cursor-not-allowed" : ""}`}
           disabled={page === totalPages}
         >
           Next
