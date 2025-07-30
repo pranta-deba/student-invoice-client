@@ -1,6 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { publicAxios } from "../../config/axios";
+import { Loader2 } from "lucide-react";
 
 export type StudentType = {
   _id?: string;
@@ -136,7 +137,7 @@ const StudentPayment = () => {
   return (
     <div className="container mx-auto flex flex-col md:flex-row gap-3  my-6 p-4">
       <div className="w-full md:w-4/12 p-4 rounded-lg shadow-md space-y-4">
-        <h2 className="text-xl font-semibold text-center">Search Student</h2>
+        <h2 className="text-xl font-semibold text-center text-[#F25925]">Search Student</h2>
 
         {/* Class Select */}
         <div>
@@ -144,7 +145,7 @@ const StudentPayment = () => {
           <select
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F25925]"
           >
             <option value="" disabled>
               Select Class
@@ -165,7 +166,7 @@ const StudentPayment = () => {
             value={roll}
             onChange={(e) => setRoll(e.target.value)}
             placeholder="Enter Roll Number"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F25925]"
           />
         </div>
 
@@ -174,7 +175,7 @@ const StudentPayment = () => {
           <button
             onClick={handleSearch}
             disabled={loader}
-            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+            className="bg-[#F25925] hover:bg-[#F25925]/90 text-white px-6 py-2 rounded-md  transition"
           >
             Search
           </button>
@@ -182,11 +183,11 @@ const StudentPayment = () => {
       </div>
 
       <div className="w-full md:w-8/12 p-4 rounded-lg shadow-md space-y-4">
-        <h1 className=" text-center font-bold">Payment Details</h1>
+        <h1 className="text-xl font-semibold text-center underline text-[#F25925]">Payment Details</h1>
 
         {loader && (
-          <div className="flex justify-center items-center">
-            <p>Loading...</p>
+         <div className="flex justify-center items-center h-40">
+            <Loader2 className="animate-spin h-8 w-8 text-[#F25925]" />
           </div>
         )}
 
@@ -194,29 +195,29 @@ const StudentPayment = () => {
           <div>
             <div className="grid grid-cols-2 gap-4 text-gray-700">
               <div>
-                <span className="font-semibold">Student Name:</span>{" "}
+                <span className="text-[#F25925] font-bold">Student Name:</span>{" "}
                 <span>{student.studentName}</span>
               </div>
               <div>
-                <span className="font-semibold">Roll No:</span>{" "}
+                <span className="text-[#F25925] font-bold">Roll No:</span>{" "}
                 <span>{student.roll}</span>
               </div>
               <div>
-                <span className="font-semibold">Class:</span>{" "}
+                <span className="text-[#F25925] font-bold">Class:</span>{" "}
                 <span>{student.studentClass}</span>
               </div>
               <div>
-                <span className="font-semibold">Class Fee:</span>{" "}
+                <span className="text-[#F25925] font-bold">Class Fee:</span>{" "}
                 <span>৳ {student.classFee}</span>
               </div>
               <div>
-                <span className="font-semibold">Total Pay:</span>{" "}
+                <span className="text-[#F25925] font-bold">Total Pay:</span>{" "}
                 <span>
                   ৳ {student.advancePayment + (student.formFee ? 500 : 0)}
                 </span>
               </div>
               <div>
-                <span className="font-semibold">Due Amount:</span>{" "}
+                <span className="text-[#F25925] font-bold">Due Amount:</span>{" "}
                 <span
                   className={`font-bold ${
                     student.due! > 0 ? "text-red-600" : "text-green-600"
@@ -226,7 +227,7 @@ const StudentPayment = () => {
                 </span>
               </div>
               <div>
-                <span className="font-semibold">Form Fee Paid:</span>{" "}
+                <span className="text-[#F25925] font-bold">Form Fee Paid:</span>{" "}
                 <span>{student.formFee ? "Yes ✅" : "No ❌"}</span>
               </div>
             </div>
@@ -241,7 +242,7 @@ const StudentPayment = () => {
                   type="text"
                   value={payment}
                   onChange={(e) => setPayment(e.target.value)}
-                  className="mt-1 border rounded-md p-2 focus:outline-[#F25925]"
+                  className="mt-1 border rounded-md p-2 focus:outline-[#F25925] mx-2"
                   placeholder="Enter payment amount"
                   required
                 />
