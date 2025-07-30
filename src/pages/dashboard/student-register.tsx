@@ -1,7 +1,28 @@
-import { useState } from "react";
-import { Calendar, MapPin, User, Banknote } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
-const StudentRegister = () => {
+const classFees: Record<string, number | string> = {
+  IV: 1500,
+  V: 1500,
+  VI: 1600,
+  VII: 1700,
+  VIII: 1800,
+  "IX (Science)": 2500,
+  "IX (Commerce)": 2200,
+  "IX (Humanities)": 2000,
+  "X (Science)": 2500,
+  "X (Commerce)": 2200,
+  "X (Humanities)": 2000,
+  "XI (Science)": 3000,
+  "XI (Commerce)": 3000,
+  "XI (Humanities)": 2800,
+  "XII (Science)": 3000,
+  "XII (Commerce)": 3000,
+  "XII (Humanities)": 2800,
+  "SSC (Special)": "Average",
+  "HSC (Special)": "Average",
+};
+
+const AdmissionForm = () => {
   const [formData, setFormData] = useState({
     studentName: "",
     fatherName: "",
@@ -11,295 +32,169 @@ const StudentRegister = () => {
     presentAddress: "",
     gender: "",
     studentClass: "",
-    section: "",
     formFee: false,
     advancePayment: "",
   });
 
-  const [sectionOptions, setSectionOptions] = useState<string[]>([]);
+  const [classFee, setClassFee] = useState<number | string>("");
 
-  const handleClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setFormData({ ...formData, studentClass: value });
+  useEffect(() => {
+    if (formData.studentClass) {
+      setClassFee(classFees[formData.studentClass] || "");
+    }
+  }, [formData.studentClass]);
 
-    if (["IX", "X", "XI", "XII"].some((cls) => value.startsWith(cls))) {
-      setSectionOptions(["Science", "Commerce", "Humanities"]);
-    } else if (["SSC (Special)", "HSC (Special)"].includes(value)) {
-      setSectionOptions(["Special"]);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, checked } = e.target as HTMLInputElement;
+    if (name === "formFee") {
+      setFormData({ ...formData, [name]: checked });
+    } else if (["dd", "mm", "yyyy"].includes(name)) {
+      setFormData({
+        ...formData,
+        dob: { ...formData.dob, [name]: value },
+      });
     } else {
-      setSectionOptions(["N/A"]);
+      setFormData({ ...formData, [name]: value });
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
+    console.log("Submitted Data:", { ...formData, classFee });
+    // Add form submission logic here
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6 text-[#1A1A2E] flex items-center gap-2">
-        <User className="text-[#F25925]" /> Student Registration
-      </h2>
+    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-4 space-y-4">
+      <input
+        name="studentName"
+        value={formData.studentName}
+        onChange={handleChange}
+        placeholder="Student Name"
+        className="border p-2 w-full"
+        required
+      />
+      <input
+        name="fatherName"
+        value={formData.fatherName}
+        onChange={handleChange}
+        placeholder="Father's Name"
+        className="border p-2 w-full"
+        required
+      />
+      <input
+        name="motherName"
+        value={formData.motherName}
+        onChange={handleChange}
+        placeholder="Mother's Name"
+        className="border p-2 w-full"
+        required
+      />
 
-      <form onSubmit={handleSubmit}>
-        <div className="space-y-6">
-          {/* Student Name */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Student Name
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.studentName}
-              onChange={(e) =>
-                setFormData({ ...formData, studentName: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              placeholder="Enter student name"
-            />
-          </div>
+      <div className="flex gap-2">
+        <input
+          name="dd"
+          value={formData.dob.dd}
+          onChange={handleChange}
+          placeholder="DD"
+          className="border p-2 w-1/3"
+          required
+        />
+        <input
+          name="mm"
+          value={formData.dob.mm}
+          onChange={handleChange}
+          placeholder="MM"
+          className="border p-2 w-1/3"
+          required
+        />
+        <input
+          name="yyyy"
+          value={formData.dob.yyyy}
+          onChange={handleChange}
+          placeholder="YYYY"
+          className="border p-2 w-1/3"
+          required
+        />
+      </div>
 
-          {/* Father's Name */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Father's Name
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.fatherName}
-              onChange={(e) =>
-                setFormData({ ...formData, fatherName: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              placeholder="Enter father's name"
-            />
-          </div>
+      <input
+        name="permanentAddress"
+        value={formData.permanentAddress}
+        onChange={handleChange}
+        placeholder="Permanent Address"
+        className="border p-2 w-full"
+        required
+      />
+      <input
+        name="presentAddress"
+        value={formData.presentAddress}
+        onChange={handleChange}
+        placeholder="Present Address"
+        className="border p-2 w-full"
+        required
+      />
 
-          {/* Mother's Name */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Mother's Name
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.motherName}
-              onChange={(e) =>
-                setFormData({ ...formData, motherName: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              placeholder="Enter mother's name"
-            />
-          </div>
+      <select
+        name="gender"
+        value={formData.gender}
+        onChange={handleChange}
+        className="border p-2 w-full"
+        required
+      >
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
 
-          {/* Date of Birth */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2  flex items-center gap-1">
-              <Calendar className="w-4 h-4" /> Date of Birth (DD-MM-YYYY)
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="number"
-                maxLength={2}
-                required
-                placeholder="DD"
-                value={formData.dob.dd}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    dob: { ...formData.dob, dd: e.target.value },
-                  })
-                }
-                className="w-1/3 text-slate-900 bg-white border border-gray-300 text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              />
-              <input
-                type="number"
-                maxLength={2}
-                required
-                placeholder="MM"
-                value={formData.dob.mm}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    dob: { ...formData.dob, mm: e.target.value },
-                  })
-                }
-                className="w-1/3 text-slate-900 bg-white border border-gray-300 text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              />
-              <input
-                type="number"
-                maxLength={4}
-                required
-                placeholder="YYYY"
-                value={formData.dob.yyyy}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    dob: { ...formData.dob, yyyy: e.target.value },
-                  })
-                }
-                className="w-1/3 text-slate-900 bg-white border border-gray-300 text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              />
-            </div>
-          </div>
+      <select
+        name="studentClass"
+        value={formData.studentClass}
+        onChange={handleChange}
+        className="border p-2 w-full"
+        required
+      >
+        <option value="">Select Class</option>
+        {Object.keys(classFees).map((className) => (
+          <option key={className} value={className}>
+            {className}
+          </option>
+        ))}
+      </select>
 
-          {/* Addresses */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2  flex items-center gap-1">
-              <MapPin className="w-4 h-4" /> Permanent Address
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.permanentAddress}
-              onChange={(e) =>
-                setFormData({ ...formData, permanentAddress: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              placeholder="Enter permanent address"
-            />
-          </div>
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          name="formFee"
+          checked={formData.formFee}
+          onChange={handleChange}
+        />
+        <label htmlFor="formFee">Form Fee Paid</label>
+      </div>
 
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Present Address
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.presentAddress}
-              onChange={(e) =>
-                setFormData({ ...formData, presentAddress: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-              placeholder="Enter present address"
-            />
-          </div>
+      <input
+        type="number"
+        name="advancePayment"
+        value={formData.advancePayment}
+        onChange={handleChange}
+        placeholder="Advance Payment"
+        className="border p-2 w-full"
+      />
 
-          {/* Gender */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Gender
-            </label>
-            <select
-              required
-              value={formData.gender}
-              onChange={(e) =>
-                setFormData({ ...formData, gender: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-            >
-              <option value="">Select gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </div>
+      <div className="text-lg font-semibold">
+        Class Fee: <span>{classFee !== "" ? classFee : "Not selected"}</span>
+      </div>
 
-          {/* Class */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Class
-            </label>
-            <select
-              required
-              value={formData.studentClass}
-              onChange={handleClassChange}
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-            >
-              <option value="">Select class</option>
-              {[
-                "IV",
-                "V",
-                "VI",
-                "VII",
-                "VIII",
-                "IX",
-                "X",
-                "XI",
-                "XII",
-                "SSC (Special)",
-                "HSC (Special)",
-              ].map((cls) => (
-                <option key={cls} value={cls}>
-                  {cls}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Section */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2 block">
-              Section
-            </label>
-            <select
-              required
-              value={formData.section}
-              onChange={(e) =>
-                setFormData({ ...formData, section: e.target.value })
-              }
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-            >
-              {sectionOptions.map((sec) => (
-                <option key={sec} value={sec}>
-                  {sec}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Form Fee */}
-          <div className="flex items-center">
-            <input
-              id="form-fee"
-              type="checkbox"
-              checked={formData.formFee}
-              onChange={(e) =>
-                setFormData({ ...formData, formFee: e.target.checked })
-              }
-              className="h-4 w-4 shrink-0 text-[#F25925] focus:ring-[#F25925] border-gray-300 rounded"
-            />
-            <label
-              htmlFor="form-fee"
-              className="text-slate-600 ml-3 block text-sm"
-            >
-              Form Fee Paid
-            </label>
-          </div>
-
-          {/* Advance Payment */}
-          <div>
-            <label className="text-slate-900 text-sm font-medium mb-2  flex items-center gap-1">
-              <Banknote className="w-4 h-4" /> Advance Payment
-            </label>
-            <input
-              type="number"
-              required
-              value={formData.advancePayment}
-              onChange={(e) =>
-                setFormData({ ...formData, advancePayment: e.target.value })
-              }
-              placeholder="Enter advance amount"
-              className="text-slate-900 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-[#F25925]"
-            />
-          </div>
-        </div>
-
-        <div className="mt-12">
-          <button
-            type="submit"
-            className="w-full py-3 px-4 text-sm tracking-wider font-medium rounded-md text-white bg-[#F25925] hover:bg-[#FBCEBD] hover:text-black transition-all cursor-pointer"
-          >
-            Register Student
-          </button>
-        </div>
-      </form>
-    </div>
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Submit Form
+      </button>
+    </form>
   );
 };
 
-export default StudentRegister;
+export default AdmissionForm;
