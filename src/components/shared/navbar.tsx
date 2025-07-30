@@ -4,10 +4,7 @@ import logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 import ProfileDropdown from "../ui/profile-dropdown";
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Team", path: "/team" },
-];
+const navLinks = [{ name: "Home", path: "/" }];
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
