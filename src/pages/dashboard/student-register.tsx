@@ -116,9 +116,11 @@ const AdmissionForm = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-xl font-semibold mt-4 text-center text-[#F25925] underline">Admission Form</h1>
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-4 space-y-4">
+    <div className="p-4">
+      <h1 className="text-xl font-semibold mt-4 text-center text-[#F25925] underline">
+        Admission Form
+      </h1>
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-4 space-y-4 shadow-md mb-4 rounded-xl">
         <input
           name="studentName"
           value={formData.studentName}
@@ -245,7 +247,7 @@ const AdmissionForm = () => {
               name="classFee"
               value={classFee}
               onChange={(e) => setClassFee(Number(e.target.value))}
-              className="border p-2"
+              className="border p-1 text-sm"
               placeholder="Average Class Fee"
             />
           )}
