@@ -14,5 +14,5 @@ const AuthProvider = ({ children }: Props) => {
   const value = { user, setUser, appLoader, setAppLoader };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
+ 
 export default AuthProvider;
