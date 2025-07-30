@@ -6,26 +6,45 @@ import {
   removeUser,
 } from "../utils/localStorage";
 
+type User = {
+  id?: string;
+  name: string;
+  email: string;
+  password?: string;
+  role: "admin" | "user";
+  image?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 type Props = {
   children: ReactNode;
 };
 
 const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [appLoader, setAppLoader] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     setAppLoader(true);
+
     const storedUser = getUserByLocalStorage();
-    if (storedUser) {
-      setUser(storedUser);
-    } else {
-      setUser(null);
-      removeToken();
-      removeUser();
+    if (isMounted) {
+      if (storedUser) {
+        setUser(storedUser);
+      } else {
+        setUser(null);
+        removeToken();
+        removeUser();
+      }
+      setAppLoader(false);
     }
-    setAppLoader(false);
-    return () => {};
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   console.log(user);

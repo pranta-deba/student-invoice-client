@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { setToken, setUserByLocalStorage } from "../utils/localStorage";
 
 const Auth = () => {
-  const { setUser } = useAuth();
+  const { setUser }  = useAuth();
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
 
   const [signinPasswordVisible, setSigninPasswordVisible] = useState(false);
