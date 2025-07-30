@@ -1,9 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { UserCircle, User, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import {
+  clearLocalStorage,
+  removeToken,
+  removeUser,
+} from "../../utils/localStorage";
 
 const ProfileDropdown = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { setUser } = useAuth();
 
   // Close on outside click
   useEffect(() => {
@@ -19,6 +27,13 @@ const ProfileDropdown = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleLogOut = () => {
+    setUser(null);
+    removeToken();
+    removeUser();
+    clearLocalStorage();
+  };
+
   return (
     <div ref={dropdownRef} className="relative inline-block text-left">
       {/* Icon Avatar Button */}
@@ -33,15 +48,15 @@ const ProfileDropdown = () => {
       {open && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black/10 z-50">
           <div className="py-1 text-gray-700">
-            <a
-              href="#profile"
-              className="flex items-center px-4 py-2 text-sm hover:bg-gray-100"
+            <Link
+              to="/profile"
+              className="flex items-center px-4 py-2 text-sm hover:text-[#F25925]"
             >
               <User size={16} className="mr-2" /> View Profile
-            </a>
+            </Link>
             <button
-              onClick={() => alert("Logged out")}
-              className="flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100"
+              onClick={handleLogOut}
+              className="flex items-center w-full px-4 py-2 text-sm hover:text-[#F25925] cursor-pointer"
             >
               <LogOut size={16} className="mr-2" /> Logout
             </button>

@@ -5,6 +5,7 @@ import StudentRegister from "../pages/dashboard/student-register";
 import StudentPayment from "../pages/dashboard/student-payment";
 import StudentInformation from "../pages/dashboard/student-information";
 import AllStudent from "../pages/dashboard/all-student";
+import Profile from "../pages/profile";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "dashboard/payment",
         element: <StudentPayment />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },
