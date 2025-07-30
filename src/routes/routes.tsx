@@ -3,6 +3,7 @@ import Root from "../components/layouts/root";
 import Home from "../pages/home";
 import StudentRegister from "../pages/dashboard/student-register";
 import StudentPayment from "../pages/dashboard/student-payment";
+import StudentInformation from "../pages/dashboard/student-information";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "dashboard/student-info",
-        element: "student-info",
+        element: <StudentInformation />,
       },
       {
         path: "dashboard/register",

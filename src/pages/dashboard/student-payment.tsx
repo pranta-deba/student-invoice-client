@@ -173,12 +173,14 @@ const StudentPayment = () => {
         <div className="text-center">
           <button
             onClick={handleSearch}
+            disabled={loader}
             className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
           >
             Search
           </button>
         </div>
       </div>
+
       <div className="w-full md:w-8/12 p-4 rounded-lg shadow-md space-y-4">
         <h1 className=" text-center font-bold">Payment Details</h1>
 
@@ -209,7 +211,9 @@ const StudentPayment = () => {
               </div>
               <div>
                 <span className="font-semibold">Total Pay:</span>{" "}
-                <span>৳ {student.classFee - student.due!}</span>
+                <span>
+                  ৳ {student.advancePayment + (student.formFee ? 500 : 0)}
+                </span>
               </div>
               <div>
                 <span className="font-semibold">Due Amount:</span>{" "}
