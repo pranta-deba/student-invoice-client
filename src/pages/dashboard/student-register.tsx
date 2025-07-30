@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { publicAxios } from "../../config/axios";
 
 const classFees: Record<string, number | string> = {
   IV: 1500,
@@ -37,10 +38,21 @@ const AdmissionForm = () => {
   });
 
   const [classFee, setClassFee] = useState<number | string>("");
+  const [loader, setLoader] = useState(false);
+  const [average, setAverage] = useState(false);
 
   useEffect(() => {
     if (formData.studentClass) {
-      setClassFee(classFees[formData.studentClass] || "");
+      if (
+        formData.studentClass === "SSC (Special)" ||
+        formData.studentClass === "HSC (Special)"
+      ) {
+        setAverage(true);
+        setClassFee("");
+      } else {
+        setClassFee(Number(classFees[formData.studentClass]) || 0);
+        setAverage(false);
+      }
     }
   }, [formData.studentClass]);
 
@@ -60,10 +72,47 @@ const AdmissionForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted Data:", { ...formData, classFee });
-    // Add form submission logic here
+    setLoader(true);
+    const parsedAdvance = formData.advancePayment
+      ? Number(formData.advancePayment)
+      : 0;
+    const parsedClassFee = Number(classFee);
+
+    const submissionData = {
+      ...formData,
+      advancePayment: parsedAdvance,
+      classFee: parsedClassFee,
+    };
+
+    console.log("Submitted Data:", submissionData);
+
+    try {
+      const res = await publicAxios.post(
+        "/api/students/register",
+        submissionData
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    } finally {
+      setLoader(false);
+      setFormData({
+        studentName: "",
+        fatherName: "",
+        motherName: "",
+        dob: { dd: "", mm: "", yyyy: "" },
+        permanentAddress: "",
+        presentAddress: "",
+        gender: "",
+        studentClass: "",
+        formFee: false,
+        advancePayment: "",
+      });
+      setAverage(false);
+      setClassFee("");
+    }
   };
 
   return (
@@ -95,6 +144,7 @@ const AdmissionForm = () => {
 
       <div className="flex gap-2">
         <input
+          type="number"
           name="dd"
           value={formData.dob.dd}
           onChange={handleChange}
@@ -103,6 +153,7 @@ const AdmissionForm = () => {
           required
         />
         <input
+          type="number"
           name="mm"
           value={formData.dob.mm}
           onChange={handleChange}
@@ -112,6 +163,7 @@ const AdmissionForm = () => {
         />
         <input
           name="yyyy"
+          type="number"
           value={formData.dob.yyyy}
           onChange={handleChange}
           placeholder="YYYY"
@@ -184,10 +236,21 @@ const AdmissionForm = () => {
       />
 
       <div className="text-lg font-semibold">
-        Class Fee: <span>{classFee !== "" ? classFee : "Not selected"}</span>
+        Class Fee: <span>{!average ? classFee : ""}</span>{" "}
+        {average && (
+          <input
+            type="number"
+            name="classFee"
+            value={classFee}
+            onChange={(e) => setClassFee(Number(e.target.value))}
+            className="border p-2"
+            placeholder="Average Class Fee"
+          />
+        )}
       </div>
 
       <button
+        disabled={loader}
         type="submit"
         className="bg-blue-600 text-white px-4 py-2 rounded"
       >
